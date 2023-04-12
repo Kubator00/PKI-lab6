@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-    res.render('Hello world')
+    res.send('Hello world')
 })
 
 
