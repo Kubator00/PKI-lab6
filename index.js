@@ -9,7 +9,7 @@ app.use(cors());
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.SECRET_KEY;
-const REDIRECT_URL = OAuth2Data.client.redirect;
+const REDIRECT_URL = OAuth2Data.web.redirect_uris[0];
 
 
 const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL)

@@ -1,11 +1,14 @@
 {
-    "client": {
-        "redirect": "https://pki-lab6.azurewebsites.net/"
-    },
-    "credentials": {
-        "access_token": "https://oauth2.googleapis.com/token",
-        "token_type": "Bearer",
-        "expires_in": 3600,
-        "refresh_token": "your refresh_token"
+    "web": {
+        "project_id": "pki-lab6-383514",
+        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+        "token_uri": "https://oauth2.googleapis.com/token",
+        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+        "redirect_uris": [
+            "https://pki-lab6.azurewebsites.net"
+        ],
+        "javascript_origins": [
+            "https://pki-lab6.azurewebsites.net"
+        ]
     }
 }
