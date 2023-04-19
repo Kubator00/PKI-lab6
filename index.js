@@ -20,27 +20,29 @@ app.get('/', (req, res) => {
     if (!authed) {
         const url = oAuth2Client.generateAuthUrl({
             access_type: 'offline',
-            scope: 'https://www.googleapis.com/auth/gmail.readonly'
+            scope: 'https://www.googleapis.com/auth/userinfo.profile'
         });
         res.redirect(url);
     } else {
-        const gmail = google.gmail({ version: 'v1', auth: oAuth2Client });
-        gmail.users.labels.list({
-            userId: 'me',
-        }, (err, res) => {
-            if (err) return console.log('The API returned an error: ' + err);
-            const labels = res.data.labels;
-            if (labels.length) {
-                console.log('Labels:');
-                labels.forEach((label) => {
-                    console.log(`- ${label.name}`);
-                });
-            } else {
-                console.log('No labels found.');
+        const oauth2 = google.oauth2({ auth: oAuth2Client, version: 'v2' });
+        oauth2.userinfo.v2.me.get(function (err, result) {
+            let loggedUser;
+            if (err) {
+                res.send('wystapil blad');
             }
-        });
-        res.send('Logged in')
+            else {
+                loggedUser = result.data.name;
+                console.log(loggedUser);
+            }
+            res.send(`Logged in: ${loggedUser} <br/> <img src='${result.data.picture}' height='23' width='23' />`)
+
+        })
     }
+})
+
+app.get('/logout', () => {
+    authed = false;
+    res.redirect('/');
 })
 
 app.get('/auth/google/callback', function (req, res) {
