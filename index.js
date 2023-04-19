@@ -16,7 +16,12 @@ const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_U
 var authed = false;
 
 app.get('/', (req, res) => {
-    console.log("start");
+    if (authed)
+        return res.redirect('/user');
+    res.send(`Witaj na stronie <br> <a href='/login'>Zaloguj się </a> `)
+})
+
+app.get('/login', (req, res) => {
     if (!authed) {
         const url = oAuth2Client.generateAuthUrl({
             access_type: 'offline',
@@ -24,20 +29,26 @@ app.get('/', (req, res) => {
         });
         res.redirect(url);
     } else {
-        const oauth2 = google.oauth2({ auth: oAuth2Client, version: 'v2' });
-        oauth2.userinfo.v2.me.get(function (err, result) {
-            let loggedUser;
-            if (err) {
-                res.send('wystapil blad');
-            }
-            else {
-                loggedUser = result.data.name;
-                console.log(loggedUser);
-            }
-            res.send(`Logged in: ${loggedUser} <br/> <img src='${result.data.picture}' height='23' width='23' /> <a href='/logout'>Wyloguj</a>`)
-
-        })
+        res.redirect('/user');
     }
+});
+
+app.get('/user', (req, res) => {
+    if (!authed)
+        return res.redirect('/');
+
+    const oauth2 = google.oauth2({ auth: oAuth2Client, version: 'v2' });
+    oauth2.userinfo.v2.me.get(function (err, result) {
+        let loggedUser;
+        if (err) {
+            res.send('wystapil blad');
+        }
+        else {
+            loggedUser = result.data.name;
+            console.log(loggedUser);
+        }
+        res.send(`Logged in: ${loggedUser} <br/> <img src='${result.data.picture}' height='23' width='23' /> <a href='/logout'>Wyloguj</a>`)
+    });
 })
 
 app.get('/logout', (req, res) => {
@@ -56,7 +67,7 @@ app.get('/auth/google/callback', function (req, res) {
                 console.log('Successfully authenticated');
                 oAuth2Client.setCredentials(tokens);
                 authed = true;
-                res.redirect('/')
+                res.redirect('/user')
             }
         });
     }
