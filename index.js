@@ -34,13 +34,13 @@ app.get('/', (req, res) => {
                 loggedUser = result.data.name;
                 console.log(loggedUser);
             }
-            res.send(`Logged in: ${loggedUser} <br/> <img src='${result.data.picture}' height='23' width='23' />`)
+            res.send(`Logged in: ${loggedUser} <br/> <img src='${result.data.picture}' height='23' width='23' /> <a href='/'>Wyloguj</a>`)
 
         })
     }
 })
 
-app.get('/logout', () => {
+app.get('/logout', (req, res) => {
     authed = false;
     res.redirect('/');
 })
