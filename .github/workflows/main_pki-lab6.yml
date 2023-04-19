@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'pki-lab6'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_AC5069FCFE134FF18B7279759CE546E7 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3247ED4B43674140A20ED4AAA3D4C192 }}
           package: .
