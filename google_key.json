@@ -1,6 +1,6 @@
 {
     "client": {
-        "redirect": "https://pki-lab6.azurewebsites.net"
+        "redirect": "https://pki-lab6.azurewebsites.net/"
     },
     "credentials": {
         "access_token": "https://oauth2.googleapis.com/token",
