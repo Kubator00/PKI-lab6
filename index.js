@@ -23,6 +23,8 @@ app.get('/', (req, res) => {
             scope: 'https://www.googleapis.com/auth/gmail.readonly'
         });
         console.log(url)
+        res.send("test");
+        return;
         res.redirect(url);
     } else {
         const gmail = google.gmail({ version: 'v1', auth: oAuth2Client });
