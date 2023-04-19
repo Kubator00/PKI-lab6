@@ -63,5 +63,5 @@ app.get('/auth/google/callback', function (req, res) {
     }
 });
 
-const port = 80
+const port = 8080
 app.listen(port, () => console.log(`Server running at ${port}`));
