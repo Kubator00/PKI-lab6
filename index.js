@@ -94,6 +94,7 @@ app.get('/github/callback', (req, res) => {
         }
     }).then((response) => {
         access_token = response.data.access_token
+        authed = true;
         res.redirect('/user-github');
     })
 })
